@@ -14,7 +14,7 @@ constexpr Real kMinEffectiveMass = Real{1e-8f};
 constexpr Real kAnchorMatchDistance2 = Real{0.10f * 0.10f};
 constexpr Real kNormalMatchCos = Real{0.95f};
 constexpr Real kRestitutionSpeedThreshold = Real{1.0f};
-constexpr Real kWarmStartMultiplier = Real{0.9f};
+constexpr Real kWarmStartMultiplier = Real{1.0f};
 constexpr Real kPositionCorrectionFactor = Real{0.35f};
 constexpr Real kMaxPositionCorrection = Real{0.08f};
 
