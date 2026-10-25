@@ -90,6 +90,21 @@ FREE ROTATION 시나리오(중력·충돌 없음, 중간축 회전, dt = 1/120 s
 | BulletStyle | ω | −40.51% | 40.51% | −22.88% | 암시적 뉴턴 1회. 안정적이지만 에너지가 줄어듦 |
 | GyroscopicOff | ω | 0% | 0% | 0% | 자이로 항(ω × Iω)을 무시. 뒤집힘이 사라짐 |
 
+강체 1개를 한 스텝 적분하는 데 걸리는 시간입니다.
+
+| 적분기 | 시간 |
+|---|---:|
+| PreviousOmega, GyroscopicOff | 약 85 ns |
+| EulerEquation, JoltStyle, BulletStyle | 120~150 ns |
+| MidpointOmega | 184 ns |
+| StrangSplitting | 379 ns |
+| NextOmega | 1,085 ns (고정점 반복 10회) |
+
+StrangSplitting은 한 스텝에 주축 회전을 5번 하면서 매번 회전행렬과 월드 관성텐서를 다시 계산하기 때문에 MidpointOmega보다 약 2배 느립니다. 다만 강체 1,000개를 적분해도 약 0.4 ms라서, 박스 210개짜리 피라미드의 충돌 처리(스텝당 약 10 ms)에 비하면 작은 비중입니다.
+
+(측정 환경: Linux, g++ 13.3 `-O2`, Intel Xeon 2.1 GHz, 단일 스레드. 환경에 따라 절대 시간은 달라질 수 있습니다.)
+
+
 ## 프로젝트 구조
 
 ```
