@@ -17,7 +17,7 @@ using namespace DirectX;
 
 namespace
 {
-    constexpr UINT kMaxDebugVertices = 8192;
+    constexpr UINT kMaxDebugVertices = 65536;
 
     struct Vertex
     {
