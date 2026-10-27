@@ -34,6 +34,82 @@ C++20으로 처음부터 구현한 3D 강체 물리엔진과, 그 동작을 확�
 | `F`  | 작은 구 발사 |
 | 오른쪽 패널 | 시나리오, 중력·반발·마찰, 적분기, 타임스텝 변경 |
 
+## 핵심 결과
+
+### 1. 박스 적층 안정성: 순차 해결 → PGS + 접촉 매니폴드
+
+초기 버전은 박스 쌍마다 접촉점을 1개만 만들고, 접촉을 하나씩 순서대로 해결했습니다. 프레임 사이에 접촉 정보도 저장하지 않아서 4단 스택도 흔들리다 무너졌습니다.
+
+현재 버전은 다음 두 가지를 바꿨습니다.
+
+- **접촉 매니폴드**: 접촉면 클리핑으로 박스 쌍마다 접촉점을 최대 4개까지 만듭니다.
+- **PGS(Projected Gauss-Seidel)**: 모든 접촉을 함께 반복해서 풀고, 이전 프레임의 충격량에서 시작합니다(웜 스타트).
+
+**개선 전**
+
+
+https://github.com/user-attachments/assets/319928d0-61a5-435b-928b-68d18baacdeb
+
+
+
+
+**개선 후**
+
+
+
+https://github.com/user-attachments/assets/9cc81907-005d-481b-8079-777370fb8637
+
+
+
+
+
+### 2. 적분기별 에너지 안정성
+
+**병진 (SPRING 시나리오)**: Explicit Euler는 에너지가 계속 늘어나고, Semi-implicit Euler는 일정한 범위 안에서 유지됩니다.
+
+**Explicit Euler**
+
+https://github.com/user-attachments/assets/0496d35f-4e5d-43d8-8489-c71340356dc1
+
+
+**Semi-Implicit Euler**
+
+
+
+https://github.com/user-attachments/assets/0e5da935-703b-461c-9993-85f99671f060
+
+
+
+
+
+
+**회전 (FREE ROTATION 시나리오)**: 기본값인 Strang splitting은 에너지 오차가 0.02% 안에서 진동만 합니다. 
+오일러 방정식을 그대로 적분하면 에너지가 발산합니다. 
+자이로 항을 끄면 에너지는 보존되지만 중간축 뒤집힘이 사라집니다.
+
+**Strang splitting**
+
+
+
+https://github.com/user-attachments/assets/0ab63873-225d-48b3-80ee-53044198fa99
+
+
+
+**Euler-Equation**
+
+
+
+https://github.com/user-attachments/assets/8bdcee73-3325-4c42-8d8c-5f48b9fceea0
+
+
+
+**Gyroscopic Off**
+
+
+
+https://github.com/user-attachments/assets/f9af0b60-9eda-4675-94e3-90d3b1074b3b
+
+
 ## 테스트 시나리오 설명
 
 1~8번째 시나리오(Gallery, Box / Plane, Sphere / Plane, Sphere / Sphere, Box / Sphere, Box / Box, Four-box stack, Mixed falling bodies)는 기본 도형끼리의 충돌을 확인하는 시나리오라 설명을 생략합니다.
