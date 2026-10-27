@@ -45,7 +45,7 @@ C++20으로 처음부터 구현한 3D 강체 물리엔진과, 그 동작을 확�
 - **접촉 매니폴드**: 접촉면 클리핑으로 박스 쌍마다 접촉점을 최대 4개까지 만듭니다.
 - **PGS(Projected Gauss-Seidel)**: 모든 접촉을 함께 반복해서 풀고, 이전 프레임의 충격량에서 시작합니다(웜 스타트).
 
-**개선 전**
+**개선 전** (개선 전 코드는 [Releases의 Baseline](https://github.com/kms-9725/PhysicsEngine/releases/tag/Baseline)에서 받을 수 있습니다.)
 
 
 https://github.com/user-attachments/assets/319928d0-61a5-435b-928b-68d18baacdeb
