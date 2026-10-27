@@ -42,14 +42,14 @@ https://github.com/user-attachments/assets/9cc81907-005d-481b-8079-777370fb8637
 
 ### 2. 적분기별 에너지 안정성
 
-**병진 (SPRING 시나리오)**: Explicit Euler는 에너지가 계속 늘어나고, Semi-implicit Euler는 일정한 범위 안에서 유지됩니다.
+**병진 (SPRING 시나리오)** 
 
-**Explicit Euler**
+**Explicit Euler**: 에너지 발산
 
 https://github.com/user-attachments/assets/0496d35f-4e5d-43d8-8489-c71340356dc1
 
 
-**Semi-Implicit Euler**
+**Semi-Implicit Euler**: 에너지 안정
 
 
 
@@ -60,11 +60,9 @@ https://github.com/user-attachments/assets/0e5da935-703b-461c-9993-85f99671f060
 
 
 
-**회전 (FREE ROTATION 시나리오)**: 기본값인 Strang splitting은 에너지 오차가 0.02% 안에서 진동만 합니다. 
-오일러 방정식을 그대로 적분하면 에너지가 발산합니다. 
-자이로 항을 끄면 에너지는 보존되지만 중간축 뒤집힘이 사라집니다.
+**회전 (FREE ROTATION 시나리오)**: 
 
-**Strang splitting**
+**Strang splitting**: 에너지 안정
 
 
 
@@ -72,7 +70,7 @@ https://github.com/user-attachments/assets/0ab63873-225d-48b3-80ee-53044198fa99
 
 
 
-**Euler-Equation**
+**Euler-Equation**: 에너지 발산
 
 
 
@@ -80,7 +78,7 @@ https://github.com/user-attachments/assets/8bdcee73-3325-4c42-8d8c-5f48b9fceea0
 
 
 
-**Gyroscopic Off**
+**Gyroscopic Off** : 중간축 뒤집힘 사라짐
 
 
 
