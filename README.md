@@ -62,19 +62,20 @@ https://github.com/user-attachments/assets/0e5da935-703b-461c-9993-85f99671f060
 
 **회전 (FREE ROTATION 시나리오)**: 
 
+**Euler-Equation**: 에너지 발산
+
+
+
+https://github.com/user-attachments/assets/8bdcee73-3325-4c42-8d8c-5f48b9fceea0
+
+
+
 **Strang splitting**: 에너지 안정
 
 
 
 https://github.com/user-attachments/assets/0ab63873-225d-48b3-80ee-53044198fa99
 
-
-
-**Euler-Equation**: 에너지 발산
-
-
-
-https://github.com/user-attachments/assets/8bdcee73-3325-4c42-8d8c-5f48b9fceea0
 
 
 
