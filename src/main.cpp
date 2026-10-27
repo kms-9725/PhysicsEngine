@@ -142,7 +142,7 @@ namespace
         bool stepOnce = false;
         bool showGrid = true;
         bool showAxes = false;
-        bool showContacts = true;
+        bool showContacts = false;
         PE::Real gravity = PE::Real{9.8f};
         PE::Real restitution = PE::Real{0.15f};
         PE::Real friction = PE::Real{0.65f};
@@ -389,7 +389,7 @@ namespace
         }
         if(app.showContacts)
         {
-            for(std::size_t i=0;i<scene.debugContacts.size() && i<120;++i)
+            for(std::size_t i=0;i<scene.debugContacts.size() && i<8000;++i)
                 r.DrawContact(scene.debugContacts[i],.085f);
         }
         if(scene.IsSpringTest() && scene.springBody)
@@ -711,7 +711,7 @@ namespace
             BS_AUTOCHECKBOX,IDC_CONTACTS,kPanelX+253,710,143,25,app.font);
         SendMessageW(grid,BM_SETCHECK,BST_CHECKED,0);
         SendMessageW(axes,BM_SETCHECK,BST_UNCHECKED,0);
-        SendMessageW(contacts,BM_SETCHECK,BST_CHECKED,0);
+        SendMessageW(contacts,BM_SETCHECK,BST_UNCHECKED,0);
         CreateControl(app.window,L"STATIC",L"Angular",SS_LEFT,-1,
             kPanelX,742,74,23,app.font);
         app.angularCombo=CreateControl(app.window,L"COMBOBOX",L"",
@@ -734,9 +734,9 @@ namespace
         AddText(app,L"LIVE STATS / ENERGY",766,23,true);
         CreateControl(app.window,L"BUTTON",L"Fast PGS (4/8)",
             BS_AUTOCHECKBOX,IDC_FAST_SOLVER,kPanelX+235,766,165,23,app.font);
-        app.infoText=AddText(app,L"",790,74);
+        app.infoText=AddText(app,L"",790,92);
         app.energyView=CreateControl(app.window,L"PE_ENERGY_GRAPH",L"",
-            0,-1,kPanelX,866,kPanelW,68,app.font);
+            0,-1,kPanelX,884,kPanelW,68,app.font);
     }
 
     LRESULT CALLBACK ViewWindowProc(HWND hwnd, UINT msg,
@@ -957,31 +957,32 @@ int main()
                     app.scene.maxAbsoluteEnergyErrorPercent,app.scene.SpringDisplacement(),
                     app.scene.SpringAnalyticPositionError());
             }
-            else if(app.scene.IsFreeRotation())
+            else if (app.scene.IsFreeRotation())
             {
-                std::swprintf(stats,750,
-                    L"Time %.2fs | Step %d | %s | Body %zu | %.0f Hz\n"
-                    L"Energy %.7g J | Delta %+.5f %% | Max |Delta| %.4f %%\n"
-                    L"Angular momentum magnitude delta %+.5f %%",
-                    app.scene.simulationTime,app.scene.physicsSteps,
-                    app.paused?L"PAUSED":L"RUNNING",app.scene.bodies.size(),
-                    1.0/app.fixedStep,app.scene.currentEnergy,app.scene.energyErrorPercent,
+                std::swprintf(stats, 750,
+                    L"Time %.2fs  Step %d  %s  %.0f Hz\n"
+                    L"Energy %.7g J  Delta %+.5f%%\n"
+                    L"Max |Delta| %.4f%%  |L| delta %+.5f%%",
+                    app.scene.simulationTime, app.scene.physicsSteps,
+                    app.paused ? L"PAUSED" : L"RUNNING", 1.0 / app.fixedStep,
+                    app.scene.currentEnergy, app.scene.energyErrorPercent,
                     app.scene.maxAbsoluteEnergyErrorPercent,
                     app.scene.angularMomentumErrorPercent);
             }
             else
             {
-                std::swprintf(stats,750,
-                    L"Time %.1fs | Step %d | %s | Bodies %zu | Contacts %zu\n"
-                    L"FPS %.0f | Physics %.2fms/step | Draw+VSync %.2fms/frame\n"
-                    L"Candidates %zu | Narrow %zu | Warm %zu | PGS %s",
-                    app.scene.simulationTime,app.scene.physicsSteps,
-                    app.paused?L"PAUSED":L"RUNNING",app.scene.bodies.size(),
-                    app.scene.debugContacts.size(),
+                std::swprintf(stats, 750,
+                    L"Time %.1fs  Step %d  %s\n"
+                    L"Bodies %zu  Contacts %zu  FPS %.0f\n"
+                    L"Physics %.2f ms/step  Draw+VSync %.2f ms\n"
+                    L"Broad %zu  Narrow %zu  Warm %zu  PGS %s",
+                    app.scene.simulationTime, app.scene.physicsSteps,
+                    app.paused ? L"PAUSED" : L"RUNNING",
+                    app.scene.bodies.size(), app.scene.debugContacts.size(),
                     static_cast<double>(reportFrames) / statsInterval,
                     reportPhysicsSteps ? reportPhysicsMs / reportPhysicsSteps : 0.0,
                     reportFrames ? reportDrawAndPresentMs / reportFrames : 0.0,
-                    app.scene.broadPhasePairs,app.scene.narrowPhasePairs,
+                    app.scene.broadPhasePairs, app.scene.narrowPhasePairs,
                     app.scene.solver.GetStatistics().warmStartedCount,
                     app.scene.fastSolver ? L"FAST" : L"FULL");
             }
