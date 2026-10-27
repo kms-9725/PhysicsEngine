@@ -192,7 +192,7 @@ StrangSplitting은 한 스텝에 주축 회전을 5번 하면서 매번 회전�
 src/
 ├── math/        벡터, 행렬, 쿼터니언
 ├── physics/     강체, 힘 생성기
-├── collision/   충돌 검출, 접촉 해결
+├── collision/   충돌체(구,평면,박스), 충돌 검출, 접촉 해결
 ├── sandbox/     테스트 시나리오
 ├── renderer/    DirectX 11 렌더러
 └── main.cpp     Win32 GUI, 메인 루프
