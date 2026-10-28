@@ -1,6 +1,6 @@
 # PhysicsEngine
 
-C++20으로 처음부터 구현한 3D 강체 물리엔진과, 그 동작을 확인하는 DirectX 11 테스트 랩입니다.
+C++ 로 구현한 3D 강체 물리엔진입니다.
 
 ## 주요 구현
 
@@ -85,6 +85,17 @@ https://github.com/user-attachments/assets/0ab63873-225d-48b3-80ee-53044198fa99
 
 https://github.com/user-attachments/assets/f9af0b60-9eda-4675-94e3-90d3b1074b3b
 
+
+## 작업 환경
+
+| 항목 | 내용 |
+|---|---|
+| OS | Windows 11 |
+| IDE / 컴파일러 | Visual Studio 2026 (MSVC, 플랫폼 도구 집합 v145) |
+| 언어 | C++20 |
+| 그래픽 API | DirectX 11, Win32 |
+| 외부 라이브러리 | 없음 |
+| AI 도구 |  ChatGPT(GPT 6), Claude(Opus 5.5) |
 
 
 ## 빌드와 실행
